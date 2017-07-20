@@ -1,0 +1,16 @@
+{
+  "name": "hacktoberstorm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "node-cron": "^1.2.0",
+    "passport": "^0.3.2"
+  }
+}
