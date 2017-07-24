@@ -1,0 +1,46 @@
+<script>
+document.getElementById("home").style.color = "#ff9900"; // current page selected in nav bar
+</script>
+
+<center><div class="container">
+<h1>UBC Open Source Month</h1>
+<h3>What is this?</h3>
+<p>A month-long open source competition for UBC students, hosted by <a href="http://www.startupstorm.org/">StartupStorm</a>, and inspired by <a href="https://hacktoberfest.digitalocean.com/">Hacktoberfest.</a></p>
+</div></center>
+
+<center>
+<div class="container-wide">
+<h3>How does it work?</h3>
+<p>Take some time this month to get involved with open source development on GitHub - as you make more contributions to an external project, your score in the leaderboard below will increase.</p>
+<p>Make at least one open source contribution to be entered into a draw to win a ______. <br/>The top five users at the end of the month will win _____.</p>
+</div>
+</center>
+
+<center>
+<div class="container-wide">
+<h3>What if I'm new to open source?</h3>
+<p>No problem! <a href="https://github.com/">Create a GitHub account</a> and follow the official <a href="https://opensource.guide/how-to-contribute/">open source guide.</a></p>
+</div>
+</center>
+
+<% if (!user) { %>
+<% } else { %>
+	<!-- <center><hr/>You are currently registered in the leaderboard. To manage your settings, go to your <a href="/account">account page</a>.</center><hr/> -->
+<% } %>
+<center>
+
+<div class="divider"></div>
+<h1>Leaderboard</h1>
+<table>
+	<tr>
+		<th>Username</th>
+		<th>Number of Pull Requests</th>
+	</tr>
+	<% for(var i=0; i<leaderboard_users.length; i++) {%>
+		<tr>
+			<td><span><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><%= leaderboard_users[i].username %></a></span></td>
+	    <td><span><%= leaderboard_users[i].leaderboard_count %></span></td>
+		</tr>
+	<% } %>
+</table>
+</center>

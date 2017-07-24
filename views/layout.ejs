@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="nav" id="main-nav">
+	<% if (!user) { %>
+		<a href="/" id="home">Home</a>
+		<a href="/login">
+      Log In With GitHub</a>
+	<% } else { %>
+		<a href="/" id="home">Home</a>
+		<a href="/account" id="account">Account</a>
+		<a href="/logout">Log Out</a>
+	<% } %>
+
+  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="hamburgerMenu()">&#9776;</a>
+</div>
+
+<div style="padding-left:16px; padding-bottom: 50px;">
+  <!-- content rendered here -->
+  <%- body %>
+</div>
+
+<script>
+function hamburgerMenu() {
+    var x = document.getElementById("main-nav");
+    if (x.className === "nav") {
+        x.className += " responsive";
+    } else {
+        x.className = "nav";
+    }
+}
+</script>
+</body>
+</html>

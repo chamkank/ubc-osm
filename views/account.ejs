@@ -1,0 +1,44 @@
+<script>
+document.getElementById("account").style.color = "#ff9900"; // current page selected in nav bar
+</script>
+
+<% if (!email) { %>
+  <!-- If user email field isn't defined -->
+<h3>One last step! Please enter your email so that you can be contacted if you win.</h3>
+<form action="/set_email" method="POST">
+  <input type="text" name="email" style="margin: 4px 2px;">
+  ​<input type="submit" value="Submit email" maxlength="254"/>
+</form>
+<% } else { %>
+
+<p><b>Name:</b> <%= user.displayName %></p>
+<p><b>Username:</b> <%= user.username %></p>
+<p><b>Email:</b> <%= email %></p>
+<p><b>Pull requests:</b>
+  <% if (pull_requests) { %>
+  <ol>
+    <% for(var i=0; i<pull_requests.length; i++) {%>
+      <li class="leaderboard-user">
+        <span><b><a href="<%= pull_requests[i].html_url %>"><%= pull_requests[i].title %></a></b></span>
+      </li>
+      <% } %>
+    </ol>
+  <% } %>
+  </p>
+  NOTE: Pull requests are updated every hour and only count if they are a contribution to a project that is not your own.
+  <% if (!deactivated) { %>
+    <p>
+      <b>Your account is active and you are currently on the <a href="/" style="text-decoration:none">leaderboard.</b>
+      <form action="/deactivate">
+        ​<input type="submit" class="button" value="Deactivate Account" />
+      </form>
+    </p>
+    <% } else { %>
+      <p>
+        <b>You have been removed from the leaderboard and your account is currently disabled.</b>
+        <form action="/activate">
+          <input type="submit" class="button" value="Activate account" />
+        </form>
+      </p>
+      <% } %>
+<% } %>
