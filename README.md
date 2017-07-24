@@ -1,5 +1,6 @@
 # ubc-osm
 [UBC Open Source Month Leaderboard](http://ec2-34-203-223-167.compute-1.amazonaws.com/)
+
 Trello discussion thread: https://trello.com/c/eNtLkekm/1-leaderboard-with-prizes
 
 ## Setup
