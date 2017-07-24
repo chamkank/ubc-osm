@@ -1,5 +1,5 @@
 # ubc-osm
-UBC Open Source Month Leaderboard
+[UBC Open Source Month Leaderboard](http://ec2-34-203-223-167.compute-1.amazonaws.com/)
 
 ## Setup
 Create a config.ini file in the root directory with the following values (sample values provided) and then run `npm install && npm run`.
