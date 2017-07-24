@@ -3,6 +3,8 @@
 
 [Trello discussion thread](https://trello.com/c/eNtLkekm/1-leaderboard-with-prizes)
 
+NOTE: Front-end is still bare, so ignore the lack of aesthetic.
+
 ## Setup
 Create a config.ini file in the root directory with the following values (sample values provided) and then run `npm install && npm run`.
 
