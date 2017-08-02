@@ -8,6 +8,7 @@ const passport = require('passport')
 const GitHubStrategy = require('passport-github2').Strategy;
 const partials = require('express-partials');
 const mongodb = require('mongodb');
+var Promise = require('promise');
 var request = require('request');
 var cron = require('node-cron');
 
@@ -182,7 +183,10 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login')
 }
 
-// Updates leaderboard (this function is called by a scheduler and when a new user signs up)
+/**
+    Updates leaderboard (this function is called by the scheduler every hour, or when a new user signs up)
+    Function call order: updateLeaderboard -> (makeGitHubRequest -> updateUser)
+**/
 function updateLeaderboard(date){
   // Date must loosly be in the form "year-month-day", ex: "2017-07-02","2017-07","2017", or "" for all dates
   db.collection('users').find({"id":{$exists:true}}, {username:1, leaderboard_count:1, id:1}).toArray(function(err, results) {
@@ -191,12 +195,17 @@ function updateLeaderboard(date){
       return;
     }
     var num_users = results.length
+    console.log("num_users",num_users)
 
-    // Iterate through all users.
-    for (var i = 0; i < num_users; i++){
+    var i = 0;
+
+    // Iterate through all users using a step function.
+    function step(i){
+    if (i < num_users){
       var pull_request_list = [];
       current_user = results[i].username;
-
+      current_user_id = results[i].id;
+      console.log(current_user)
       // Options for API request
       var options = {
         url: 'https://api.github.com/search/issues?q=+type%3Apr+author%3A'+current_user,
@@ -205,47 +214,67 @@ function updateLeaderboard(date){
         }
       };
 
-      // Make GitHub API request for current_user
-      request(options, function (error, response, body) {
-        try {
-          if (err) return console.log(error);
-          // console.log('statusCode:', response && response.statusCode);
-          var pull_requests = JSON.parse(body).items
-          var num_pull_requests = Object.keys(JSON.parse(body).items).length
-          var count = 0 // running count of number of pull requests for current_user
-
-          // Iterate through pull requests and add them to database
-          for (var j = 0; j < num_pull_requests; j++){
-            current_pull_request = pull_requests[j];
-            if (current_pull_request.created_at.includes(date)){
-              // If pull request is in a repo that's not owned by user, add it to pull_request_list
-              if (!current_pull_request.pull_request.url.includes(current_user)){
-                count+=1;
-                pull_request_list.push({"title":current_pull_request.title, "html_url":current_pull_request.html_url});
-              }
-            }
-          }
-
-          // Update user's leaderboard score.
-          db.collection('users').update({"id":results[i-1].id},{$set: {"leaderboard_count":count}}, function (err, res) {
-            if (err) return console.log(err)
-            console.log("Updated "+current_user+"'s leaderboard score.");
-          })
-
-          // Update users pull_request_list.
-          db.collection('users').update({"id":results[i-1].id},{$set: {"pull_request_list":pull_request_list}}, function (err, res) {
-            if (err) return console.log(err)
-            console.log("Updated "+current_user+"'s pull_request_list.");
-          })
-
-        } catch (e) {
-          console.log(e);
-          return;
-        }
-      });
+      // Makes GitHub API request and updates user
+      makeGitHubRequest(options, current_user, date, pull_request_list);
     }
+
+    // Prevent call-stack overflow
+    setTimeout(function() {
+      step(i+1);
+    }, 0 );
+
+  };
+  step(0) // start the call which steps through users one by one
   })
 }
+
+// Makes GitHub API request and calls updateUser function
+function makeGitHubRequest(options, current_user, date, pull_request_list){
+  // Make GitHub API request for current_user
+  request(options, function (error, response, body) {
+    try {
+      if (error) return console.log(error);
+      // console.log('statusCode:', response && response.statusCode);
+      var pull_requests = JSON.parse(body).items
+      var num_pull_requests = Object.keys(JSON.parse(body).items).length
+      var count = 0 // running count of number of pull requests for current_user
+
+      console.log("pull requests", num_pull_requests)
+      // Iterate through pull requests and add them to database
+      for (j = 0; j < num_pull_requests; j++){
+        current_pull_request = pull_requests[j];
+        if (current_pull_request.created_at.includes(date)){
+          // If pull request is in a repo that's not owned by user, add it to pull_request_list
+          if (!current_pull_request.pull_request.url.includes(current_user)){
+            count+=1;
+            pull_request_list.push({"title":current_pull_request.title, "html_url":current_pull_request.html_url});
+          }
+        }
+      }
+
+      updateUser(current_user, current_user_id, count, pull_request_list)
+
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+  });
+}
+
+// Updates user's leaderboard_count and pull_request_list
+function updateUser(current_user, current_user_id, count, pull_request_list){
+  db.collection('users').update({"id":current_user_id},{$set: {"leaderboard_count":count}}, function (err, res) {
+    if (err) return console.log(err)
+    console.log("Updated "+current_user+"'s leaderboard score.");
+  })
+
+  // Update users pull_request_list.
+  db.collection('users').update({"id":current_user_id},{$set: {"pull_request_list":pull_request_list}}, function (err, res) {
+    if (err) return console.log(err)
+    console.log("Updated "+current_user+"'s pull_request_list.");
+  })
+}
+
 
 // Automatic Scheduler (updates leaderboard occasionally)
 cron.schedule('* * 1 * *', function(){
