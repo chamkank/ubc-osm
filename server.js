@@ -221,7 +221,7 @@ function updateLeaderboard(date){
     // Prevent call-stack overflow
     setTimeout(function() {
       step(i+1);
-    }, 0 );
+    }, 100 ); // 100 milliseconds
 
   };
   step(0) // start the call which steps through users one by one
