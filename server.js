@@ -100,20 +100,27 @@ app.use(express.static(__dirname + '/public'));
 // Route for homepage
 app.get('/', function(req, res){
   // Retrieve users from database that are not deactivated
-  db.collection('users').find({"id":{$exists:true}, "deactivated":{$eq:0}}, {displayName:1, username:1, leaderboard_count:1, _id:0}).toArray(function(err, results) {
+  db.collection('users').find({"id":{$exists:true}, "deactivated":{$eq:0}}, {displayName:1, username:1, leaderboard_count:1, _id:0, school:1}).toArray(function(err, results) {
     if (err) return console.log(err);
-    results.sort(sortLeaderboard); // sort users from highest score to lowest score
-    res.render('index', { user: req.user, leaderboard_users: results });
+
+    // get schools with leaderboard_count
+    db.collection('schools').find().toArray(function(err, list_of_schools) {
+      results.sort(sortLeaderboard); // sort users from highest score to lowest score
+      if (err) return console.log(err);
+      res.render('index', { user: req.user, leaderboard_users: results, schools: list_of_schools });
+    })
+
   })
 });
 
 // Route for account page
 app.get('/account', ensureAuthenticated, function(req, res){
   // retrieve selected fields of current user from database
-  db.collection('users').find({"id":{$eq:req.user.id}},{pull_request_list:1, _id:0, deactivated:1, email:1}).toArray(function(err, results) {
+  db.collection('users').find({"id":{$eq:req.user.id}},{pull_request_list:1, _id:0, deactivated:1, school:1, email:1}).toArray(function(err, results) {
     pull_request_list = results[0]["pull_request_list"];
     user_email = results[0].email
-    res.render('account', { user: req.user, pull_requests: pull_request_list, deactivated: results[0].deactivated, email: user_email});
+    user_school = results[0].school
+    res.render('account', { user: req.user, pull_requests: pull_request_list, deactivated: results[0].deactivated, school: user_school, email: user_email});
   })
 });
 
@@ -122,15 +129,23 @@ app.get('/login', function(req, res){
   res.redirect('/auth/github');
 });
 
-// Route for updating email
-app.post('/set_email', ensureAuthenticated, function(req, res){
+// Route for updating email and school
+app.post('/set_details', ensureAuthenticated, function(req, res){
   var email = req.body["email"]
+  var school = req.body["school"]
 
   // Set email field of current user
   db.collection('users').update({"id":req.user.id},{$set: {"email":email}}, function (err, res) {
     if (err) return console.log(err)
     console.log(req.user.id+" set email.");
   })
+
+  // Set school field of current user
+  db.collection('users').update({"id":req.user.id},{$set: {"school":school}}, function (err, res) {
+    if (err) return console.log(err)
+      console.log(req.user.id+" set school.");
+  })
+
   res.redirect('/account')
 
 });
@@ -185,15 +200,12 @@ function ensureAuthenticated(req, res, next) {
 
 /**
     Updates leaderboard (this function is called by the scheduler every hour, or when a new user signs up)
-    Function call order: updateLeaderboard -> (makeGitHubRequest -> updateUser)
+    Function call order: updateLeaderboard -> (makeGitHubRequest -> updateUser) -> updateSchoolCount
 **/
 function updateLeaderboard(date){
   // Date must loosly be in the form "year-month-day", ex: "2017-07-02","2017-07","2017", or "" for all dates
   db.collection('users').find({"id":{$exists:true}}, {username:1, leaderboard_count:1, id:1}).toArray(function(err, results) {
-    if (err){
-      console.log("Error updating leaderboard (could not fetch users).");
-      return;
-    }
+    if (err) return console.log("Error updating leaderboard (could not fetch users).");
     var num_users = results.length
     console.log("num_users",num_users)
 
@@ -221,11 +233,12 @@ function updateLeaderboard(date){
     // Prevent call-stack overflow
     setTimeout(function() {
       step(i+1);
-    }, 100 ); // 100 milliseconds
+    }, 1000 ); // 100 milliseconds
 
   };
   step(0) // start the call which steps through users one by one
   })
+  updateSchoolCount();
 }
 
 // Makes GitHub API request and calls updateUser function
@@ -275,6 +288,64 @@ function updateUser(current_user, current_user_id, count, pull_request_list){
   })
 }
 
+// Updates the score of all schools
+function updateSchoolCount(){
+  db.collection('users').find({"id":{$exists:true}}, {leaderboard_count:1, school:1, deactivated:1}).toArray(function(err, results) {
+    if (err) return console.log("Error updating schools (could not fetch users).");
+
+    var num_users = results.length
+    var UBC_count = 0;
+    var SFU_count = 0
+    var UVIC_count= 0
+    var BCIT_count = 0
+
+    for (var i = 0; i < num_users; i++){
+      if (results[i].deactivated == 1) continue // do not count deactivated users
+      current_count = results[i].leaderboard_count;
+      current_school = results[i].school;
+      switch (current_school) {
+        case "UBC":
+          UBC_count += current_count
+          break;
+        case "SFU":
+          SFU_count += current_count
+          break;
+        case "UVIC":
+          UVIC_count += current_count
+          break;
+        case "BCIT":
+          BCIT_count += current_count
+          break;
+      }
+    }
+    console.log(UBC_count, SFU_count, UVIC_count, BCIT_count)
+
+    // update UBC's leaderboard_count
+    db.collection('schools').update({"school":"UBC"},{$set: {"leaderboard_count":UBC_count}}, function (err, res) {
+      if (err) return console.log(err)
+      console.log("Updated UBC's leaderboard score.");
+    })
+
+    // update SFU's leaderboard_count
+    db.collection('schools').update({"school":"SFU"},{$set: {"leaderboard_count":SFU_count}}, function (err, res) {
+      if (err) return console.log(err)
+      console.log("Updated SFU's leaderboard score.");
+    })
+
+    // update UVIC's leaderboard_count
+    db.collection('schools').update({"school":"UVIC"},{$set: {"leaderboard_count":UVIC_count}}, function (err, res) {
+      if (err) return console.log(err)
+      console.log("Updated UVIC's leaderboard score.");
+    })
+
+    // update BCIT's leaderboard_count
+    db.collection('schools').update({"school":"BCIT"},{$set: {"leaderboard_count":BCIT_count}}, function (err, res) {
+      if (err) return console.log(err)
+      console.log("Updated BCIT's leaderboard score.");
+    })
+
+  })
+}
 
 // Automatic Scheduler (updates leaderboard occasionally)
 cron.schedule('* * 1 * *', function(){

@@ -4,15 +4,25 @@ document.getElementById("account").style.color = "#ff9900"; // current page sele
 
 <% if (!email) { %>
   <!-- If user email field isn't defined -->
-<h3>One last step! Please enter your email so that you can be contacted if you win.</h3>
-<form action="/set_email" method="POST">
-  <input type="text" name="email" style="margin: 4px 2px;">
-  ​<input type="submit" value="Submit email" maxlength="254"/>
+<h3>One last step! Please select your school and enter your email so that you can be contacted if you win.</h3>
+<form action="/set_details" method="POST">
+  School:
+  <select name="school">
+    <option value="UBC">University of British Columbia</option>
+    <option value="SFU">Simon Fraser University</option>
+    <option value="UVIC">University of Victoria</option>
+    <option value="BCIT">British Columbia Institute of Technology</option>
+  </select>
+  <br>
+  Email:
+  <input type="text" name="email" style="margin: 4px 2px;"><br>
+  ​<input type="submit" value="Submit" maxlength="254"/>
 </form>
 <% } else { %>
 
 <p><b>Name:</b> <%= user.displayName %></p>
 <p><b>Username:</b> <%= user.username %></p>
+<p><b>School:</b> <%= school %></p>
 <p><b>Email:</b> <%= email %></p>
 <p><b>Pull requests:</b>
   <% if (pull_requests) { %>
@@ -25,7 +35,7 @@ document.getElementById("account").style.color = "#ff9900"; // current page sele
     </ol>
   <% } %>
   </p>
-  NOTE: Pull requests are updated every hour and only count if they are a contribution to a project that is not your own.
+  NOTE: Pull requests are updated every hour and only count if they are a contribution to a public project that is not your own.
   <% if (!deactivated) { %>
     <p>
       <b>Your account is active and you are currently on the <a href="/" style="text-decoration:none">leaderboard.</b>

@@ -28,19 +28,28 @@ document.getElementById("home").style.color = "#ff9900"; // current page selecte
 	<!-- <center><hr/>You are currently registered in the leaderboard. To manage your settings, go to your <a href="/account">account page</a>.</center><hr/> -->
 <% } %>
 <center>
+	<div class="divider"></div>
+	<h1>Leaderboard</h1>
 
-<div class="divider"></div>
-<h1>Leaderboard</h1>
-<table>
-	<tr>
-		<th>Username</th>
-		<th>Number of Pull Requests</th>
-	</tr>
-	<% for(var i=0; i<leaderboard_users.length; i++) {%>
+	<span>
+	<% for(var i=0; i<schools.length; i++) {%>
+		<b><%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp; 
+		<% } %>
+	</span>
+
+	<br>
+	<table>
 		<tr>
-			<td><span><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><%= leaderboard_users[i].username %></a></span></td>
-	    <td><span><%= leaderboard_users[i].leaderboard_count %></span></td>
+			<th>Username</th>
+			<th>Number of Pull Requests</th>
+			<th>School</th>
 		</tr>
-	<% } %>
-</table>
+		<% for(var i=0; i<leaderboard_users.length; i++) {%>
+			<tr>
+				<td><span><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><%= leaderboard_users[i].username %></a></span></td>
+				<td><span><%= leaderboard_users[i].leaderboard_count %></span></td>
+				<td><span><%= leaderboard_users[i].school %></span></td>
+			</tr>
+		<% } %>
+	</table>
 </center>
