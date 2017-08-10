@@ -99,6 +99,7 @@ app.use(express.static(__dirname + '/public'));
 
 // Route for homepage
 app.get('/', function(req, res){
+  updateLeaderboard("");
   // Retrieve users from database that are not deactivated
   db.collection('users').find({"id":{$exists:true}, "deactivated":{$eq:0}}, {displayName:1, username:1, leaderboard_count:1, _id:0, school:1}).toArray(function(err, results) {
     if (err) return console.log(err);
@@ -260,7 +261,7 @@ function makeGitHubRequest(options, current_user, date, pull_request_list){
           // If pull request is in a repo that's not owned by user, add it to pull_request_list
           if (!current_pull_request.pull_request.url.includes(current_user)){
             count+=1;
-            pull_request_list.push({"title":current_pull_request.title, "html_url":current_pull_request.html_url});
+            pull_request_list.push({"title":current_pull_request.title, "html_url":current_pull_request.html_url, "api_url":current_pull_request.url, "date":current_pull_request.created_at});
           }
         }
       }
