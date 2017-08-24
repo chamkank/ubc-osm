@@ -33,19 +33,21 @@ document.getElementById("home").style.color = "#ff9900"; // current page selecte
 
 	<span>
 	<% for(var i=0; i<schools.length; i++) {%>
-		<b><%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp; 
+		<b><%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp;
 		<% } %>
 	</span>
 
 	<br>
 	<table>
 		<tr>
+			<th>Avatar</th>
 			<th>Username</th>
 			<th>Number of Pull Requests</th>
 			<th>School</th>
 		</tr>
 		<% for(var i=0; i<leaderboard_users.length; i++) {%>
 			<tr>
+				<td><span><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><img width="50px" height="50px" src="<%= leaderboard_users[i].avatar_url %>"/></a></span></td>
 				<td><span><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><%= leaderboard_users[i].username %></a></span></td>
 				<td><span><%= leaderboard_users[i].leaderboard_count %></span></td>
 				<td><span><%= leaderboard_users[i].school %></span></td>

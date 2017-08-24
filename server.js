@@ -101,7 +101,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res){
   updateLeaderboard("");
   // Retrieve users from database that are not deactivated
-  db.collection('users').find({"id":{$exists:true}, "deactivated":{$eq:0}}, {displayName:1, username:1, leaderboard_count:1, _id:0, school:1}).toArray(function(err, results) {
+  db.collection('users').find({"id":{$exists:true}, "deactivated":{$eq:0}}, {displayName:1, username:1, leaderboard_count:1, _id:0, school:1, avatar_url:1}).toArray(function(err, results) {
     if (err) return console.log(err);
 
     // get schools with leaderboard_count
@@ -234,7 +234,7 @@ function updateLeaderboard(date){
     // Prevent call-stack overflow
     setTimeout(function() {
       step(i+1);
-    }, 1000 ); // 100 milliseconds
+    }, 2000 ); // 100 milliseconds
 
   };
   step(0) // start the call which steps through users one by one
@@ -254,6 +254,8 @@ function makeGitHubRequest(options, current_user, date, pull_request_list){
       var count = 0 // running count of number of pull requests for current_user
 
       console.log("pull requests", num_pull_requests)
+
+      avatar_url = "https://github.com/" + current_user + ".png";
       // Iterate through pull requests and add them to database
       for (j = 0; j < num_pull_requests; j++){
         current_pull_request = pull_requests[j];
@@ -261,12 +263,13 @@ function makeGitHubRequest(options, current_user, date, pull_request_list){
           // If pull request is in a repo that's not owned by user, add it to pull_request_list
           if (!current_pull_request.pull_request.url.includes(current_user)){
             count+=1;
+            // avatar_url = current_pull_request.user.avatar_url;
             pull_request_list.push({"title":current_pull_request.title, "html_url":current_pull_request.html_url, "api_url":current_pull_request.url, "date":current_pull_request.created_at});
           }
         }
       }
 
-      updateUser(current_user, current_user_id, count, pull_request_list)
+      updateUser(current_user, current_user_id, count, pull_request_list, avatar_url)
 
     } catch (e) {
       console.log(e);
@@ -276,8 +279,8 @@ function makeGitHubRequest(options, current_user, date, pull_request_list){
 }
 
 // Updates user's leaderboard_count and pull_request_list
-function updateUser(current_user, current_user_id, count, pull_request_list){
-  db.collection('users').update({"id":current_user_id},{$set: {"leaderboard_count":count}}, function (err, res) {
+function updateUser(current_user, current_user_id, count, pull_request_list, avatar_url){
+  db.collection('users').update({"id":current_user_id},{$set: {"leaderboard_count":count, "avatar_url":avatar_url}}, function (err, res) {
     if (err) return console.log(err)
     console.log("Updated "+current_user+"'s leaderboard score.");
   })
