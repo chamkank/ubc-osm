@@ -1,82 +1,103 @@
-<div class="jumbotron">
-  <div class="container">
-    <div style="text-align: center">
-      <h1 class="display-3 text-primary">BC Open Source Month</h1>
-      <p class="lead">A month-long open source competition for students in British Columbia, hosted by <a href="https://www.startupstorm.org">StartupStorm</a>, and inspired by <a href="https://hacktoberfest.digitalocean.com">Hacktoberfest</a>.</p>
-    <hr class="my-4">
-  </div>
 
-  <div class="card" style="width: 100%;">
-    <div class="card-body">
-      <h4 class="card-title">How does this work?</h4>
-      <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-      <p class="card-text">Take some time this month to get involved with open source development on GitHub - as you make more contributions to external projects, you and your school's score will increase in the leaderboard below.</p>
-    </div>
-  </div>
-
-  <div class="card" style="width: 100%;">
-    <div class="card-body">
-      <h4 class="card-title">What if I'm new to open source?</h4>
-      <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-      <p class="card-text">No problem! <a href="http://www.github.com">Create a GitHub account</a> and follow the <a href="https://opensource.guide/how-to-contribute/">official open source guide.</a></p>
-    </div>
-  </div>
-
-
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="/">BC-OSM</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+		<div class="navbar-nav">
+			<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
 			<% if (!user) { %>
-  <div class="card" style="width: 100%;">
-    <div class="card-body">
-      <h4 class="card-title">How do I join?</h4>
-      <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-      <p class="card-text">Just sign up with GitHub!</p>
-      <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Register</a>
-      </p>
-    </div>
-  </div>
-	<% } else { %>
-		<!-- <center><hr/>You are currently registered in the leaderboard. To manage your settings, go to your <a href="/account">account page</a>.</center><hr/> -->
-		<% } %>
+				<a class="nav-item nav-link" href="/login">Login</a>
+				<% } else { %>
+					<a class="nav-item nav-link" href="/account">Account</a>
+					<a class="nav-item nav-link" href="/logout">Log Out</a>
+					<% } %>
+					<a class="nav-item nav-link" href="#">FAQ</a>
+				</div>
+			</div>
+		</nav>
 
-    <!-- <h3>How does it work?</h3>
-    <p>Take some time this month to get involved with open source development on GitHub - as you make more contributions to external projects, you and your school's score will increase in the leaderboard below.</p>
-    <h3>What if I'm new to open source?</h3>
-    <p>No problem! <a href="http://www.github.com">Create a GitHub account</a> and follow the <a href="https://opensource.guide/how-to-contribute/">official open source guide.</a></p>
-    <h3>How do I join?</h3>
-    <p>Just sign up with GitHub!</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Register</a>
-    </p> -->
 
-  </div>
-</div>
+		<div class="jumbotron">
+			<div class="container">
+				<div style="text-align: center">
+					<h1 class="display-3 text-primary">BC Open Source Month</h1>
+					<p class="lead">A month-long open source competition for students in British Columbia, hosted by <a href="https://www.startupstorm.org">StartupStorm</a>, and inspired by <a href="https://hacktoberfest.digitalocean.com">Hacktoberfest</a>.</p>
+					<hr class="my-4">
+				</div>
 
-<center>
-  <h1 class="display-4 text-primary">Leaderboard</h1>
-  <hr class="my-3" style="text-align: center;">
+				<div class="card" style="width: 100%;">
+					<div class="card-body">
+						<h4 class="card-title">How does this work?</h4>
+						<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+						<p class="card-text">Take some time this month to get involved with open source development on GitHub - as you make more contributions to external projects, you and your school's score will increase in the leaderboard below.</p>
+					</div>
+				</div>
 
-		<% for(var i=0; i<schools.length; i++) {%>
-			<b><%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp;
-			<% } %>
+				<div class="card" style="width: 100%;">
+					<div class="card-body">
+						<h4 class="card-title">What if I'm new to open source?</h4>
+						<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+						<p class="card-text">No problem! <a href="http://www.github.com">Create a GitHub account</a> and follow the <a href="https://opensource.guide/how-to-contribute/">official open source guide.</a></p>
+					</div>
+				</div>
 
-  <table class="table table-inverse" style="max-width: 1000px;">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Username</th>
-        <th>Number of Pull Requests</th>
-        <th>School</th>
-      </tr>
-    </thead>
-    <tbody>
-			<% for(var i=0; i<leaderboard_users.length; i++) {%>
-      <tr>
-				<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><img width="50px" height="50px" src="<%= leaderboard_users[i].avatar_url %>"/></a></td>
-				<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none; color: #ADD8E6;"><%= leaderboard_users[i].username %></a></td>
-				<td><%= leaderboard_users[i].leaderboard_count %></td>
-				<td><%= leaderboard_users[i].school %></td>
-      </tr>
-			<% } %>
-    </tbody>
-  </table>
-</center>
+
+				<% if (!user) { %>
+					<div class="card" style="width: 100%;">
+						<div class="card-body">
+							<h4 class="card-title">How do I join?</h4>
+							<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+							<p class="card-text">Just sign up with GitHub!</p>
+							<p class="lead">
+								<a class="btn btn-primary btn-lg" href="/login" role="button">Register</a>
+							</p>
+						</div>
+					</div>
+					<% } else { %>
+						<!-- <center><hr/>You are currently registered in the leaderboard. To manage your settings, go to your <a href="/account">account page</a>.</center><hr/> -->
+						<% } %>
+
+						<!-- <h3>How does it work?</h3>
+						<p>Take some time this month to get involved with open source development on GitHub - as you make more contributions to external projects, you and your school's score will increase in the leaderboard below.</p>
+						<h3>What if I'm new to open source?</h3>
+						<p>No problem! <a href="http://www.github.com">Create a GitHub account</a> and follow the <a href="https://opensource.guide/how-to-contribute/">official open source guide.</a></p>
+						<h3>How do I join?</h3>
+						<p>Just sign up with GitHub!</p>
+						<p class="lead">
+						<a class="btn btn-primary btn-lg" href="#" role="button">Register</a>
+					</p> -->
+
+				</div>
+			</div>
+
+			<center>
+				<h1 class="display-4 text-primary">Leaderboard</h1>
+				<hr class="my-3" style="text-align: center;">
+
+				<% for(var i=0; i<schools.length; i++) {%>
+					<b><%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp;
+					<% } %>
+
+					<table class="table table-inverse" style="max-width: 1000px;">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Username</th>
+								<th>Number of Pull Requests</th>
+								<th>School</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for(var i=0; i<leaderboard_users.length; i++) {%>
+								<tr>
+									<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><img width="50px" height="50px" src="<%= leaderboard_users[i].avatar_url %>"/></a></td>
+									<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none; color: #ADD8E6;"><%= leaderboard_users[i].username %></a></td>
+									<td><%= leaderboard_users[i].leaderboard_count %></td>
+									<td><%= leaderboard_users[i].school %></td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
+					</center>

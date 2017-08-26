@@ -1,63 +1,84 @@
-<div class="jumbotron jumbotron-fluid" style="margin-bottom: 0px;">
-  <div class="container">
 
-<% if (!email) { %>
-  <!-- If user email field isn't defined -->
-<h5>One last step! Please select your school and enter your email so that you can be contacted if you win.</h5>
-
-<form action="/set_details" method="POST">
-  <div class="form-row">
-    <div class="form-group col-md-4">
-      <label for="inputCity" class="col-form-label">Email</label>
-      <input type="text" class="form-control" id="inputCity">
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputState" class="col-form-label">School</label>
-      <select id="inputState" name="school"  class="form-control">
-        <option value="UBC">University of British Columbia</option>
-        <option value="SFU">Simon Fraser University</option>
-        <option value="UVIC">University of Victoria</option>
-        <option value="BCIT">British Columbia Institute of Technology</option>
-      </select>
-    </div>
-  </div>
-  <button type="submit" value="submit" class="btn btn-primary">Submit</button>
-</form>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">BC-OSM</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home</a>
+      <% if (!user) { %>
+        <a class="nav-item nav-link" href="/login">Login</a>
+        <% } else { %>
+          <a class="nav-item nav-link" href="/account">Account <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="/logout">Log Out</a>
+          <% } %>
+          <a class="nav-item nav-link" href="#">FAQ</a>
+        </div>
+      </div>
+    </nav>
 
 
-<% } else { %>
+    <div class="jumbotron jumbotron-fluid" style="margin-bottom: 0px;">
+      <div class="container">
 
-<p><b>Name:</b> <%= user.displayName %></p>
-<p><b>Username:</b> <%= user.username %></p>
-<p><b>School:</b> <%= school %></p>
-<p><b>Email:</b> <%= email %></p>
-<p><b>Pull requests:</b>
-  <% if (pull_requests) { %>
-  <ol>
-    <% for(var i=0; i<pull_requests.length; i++) {%>
-      <li class="leaderboard-user">
-        <span><b><a href="<%= pull_requests[i].html_url %>"><%= pull_requests[i].title %></a></b></span>
-      </li>
-      <% } %>
-    </ol>
-  <% } %>
-  </p>
-  NOTE: Pull requests are updated every hour and only count if they are a contribution to a public project that is not your own.
-  <% if (!deactivated) { %>
-    <p>
-      <b>Your account is active and you are currently on the <a href="/" style="text-decoration:none">leaderboard.</b>
-      <form action="/deactivate">
-        ​<input type="submit" class="button btn-danger" value="Deactivate Account" />
-      </form>
-    </p>
-    <% } else { %>
-      <p>
-        <b>You have been removed from the leaderboard and your account is currently disabled.</b>
-        <form action="/activate">
-          <input type="submit" class="button btn-success" value="Activate account" />
-        </form>
-      </p>
-      <% } %>
-<% } %>
-</div>
-</div>
+        <% if (!email) { %>
+          <!-- If user email field isn't defined -->
+          <h5>One last step! Please select your school and enter your email so that you can be contacted if you win.</h5>
+
+          <form action="/set_details" method="POST">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputCity" class="col-form-label">Email</label>
+                <input type="text" class="form-control" id="inputCity">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputState" class="col-form-label">School</label>
+                <select id="inputState" name="school"  class="form-control">
+                  <option value="UBC">University of British Columbia</option>
+                  <option value="SFU">Simon Fraser University</option>
+                  <option value="UVIC">University of Victoria</option>
+                  <option value="BCIT">British Columbia Institute of Technology</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+
+          <% } else { %>
+
+            <p><b>Name:</b> <%= user.displayName %></p>
+            <p><b>Username:</b> <%= user.username %></p>
+            <p><b>School:</b> <%= school %></p>
+            <p><b>Email:</b> <%= email %></p>
+            <p><b>Pull requests:</b>
+              <% if (pull_requests) { %>
+                <ol>
+                  <% for(var i=0; i<pull_requests.length; i++) {%>
+                    <li class="leaderboard-user">
+                      <span><b><a href="<%= pull_requests[i].html_url %>"><%= pull_requests[i].title %></a></b></span>
+                    </li>
+                    <% } %>
+                  </ol>
+                  <% } %>
+                </p>
+                NOTE: Pull requests are updated every hour and only count if they are a contribution to a public project that is not your own.
+                <% if (!deactivated) { %>
+                  <p>
+                    <b>Your account is active and you are currently on the <a href="/" style="text-decoration:none">leaderboard.</b>
+                      <form action="/deactivate">
+                        ​<input type="submit" class="button btn-danger" value="Deactivate Account" />
+                      </form>
+                    </p>
+                    <% } else { %>
+                      <p>
+                        <b>You have been removed from the leaderboard and your account is currently disabled.</b>
+                        <form action="/activate">
+                          <input type="submit" class="button btn-success" value="Activate account" />
+                        </form>
+                      </p>
+                      <% } %>
+                      <% } %>
+                    </div>
+                  </div>

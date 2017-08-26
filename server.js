@@ -99,7 +99,6 @@ app.use(express.static(__dirname + '/public'));
 
 // Route for homepage
 app.get('/', function(req, res){
-  updateLeaderboard("");
   // Retrieve users from database that are not deactivated
   db.collection('users').find({"id":{$exists:true}, "deactivated":{$eq:0}}, {displayName:1, username:1, leaderboard_count:1, _id:0, school:1, avatar_url:1}).toArray(function(err, results) {
     if (err) return console.log(err);
