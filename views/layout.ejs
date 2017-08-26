@@ -1,40 +1,38 @@
-
 <!DOCTYPE html>
-<html>
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet">
-  <link href="css/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
 </head>
+
 <body>
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">BC-OSM</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+        <% if (!user) { %>
+          <a class="nav-item nav-link" href="/login">Login</a>
+          <% } else { %>
+            <a class="nav-item nav-link" href="/account">Account</a>
+            <a class="nav-item nav-link" href="/logout">Log Out</a>
+            <% } %>
+            <a class="nav-item nav-link" href="#">FAQ</a>
+          </div>
+        </div>
+      </nav>
 
-<div class="nav" id="main-nav">
-	<% if (!user) { %>
-		<a href="/" id="home">Home</a>
-		<a href="/login">
-      Log In With GitHub</a>
-	<% } else { %>
-		<a href="/" id="home">Home</a>
-		<a href="/account" id="account">Account</a>
-		<a href="/logout">Log Out</a>
-	<% } %>
 
-  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="hamburgerMenu()">&#9776;</a>
-</div>
+      <div>
+        <!-- content rendered here -->
+        <%- body %>
+      </div>
 
-<div style="padding-left:16px; padding-bottom: 50px;">
-  <!-- content rendered here -->
-  <%- body %>
-</div>
+      <!-- Scripts -->
+      <script src="js/jquery-3.2.1.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+    </body>
 
-<script>
-function hamburgerMenu() {
-    var x = document.getElementById("main-nav");
-    if (x.className === "nav") {
-        x.className += " responsive";
-    } else {
-        x.className = "nav";
-    }
-}
-</script>
-</body>
-</html>
+    </html>

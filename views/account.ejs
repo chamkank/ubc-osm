@@ -1,23 +1,30 @@
-<script>
-document.getElementById("account").style.color = "#ff9900"; // current page selected in nav bar
-</script>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
 
 <% if (!email) { %>
   <!-- If user email field isn't defined -->
-<h3>One last step! Please select your school and enter your email so that you can be contacted if you win.</h3>
+<h5>One last step! Please select your school and enter your email so that you can be contacted if you win.</h5>
+
 <form action="/set_details" method="POST">
-  School:
-  <select name="school">
-    <option value="UBC">University of British Columbia</option>
-    <option value="SFU">Simon Fraser University</option>
-    <option value="UVIC">University of Victoria</option>
-    <option value="BCIT">British Columbia Institute of Technology</option>
-  </select>
-  <br>
-  Email:
-  <input type="text" name="email" style="margin: 4px 2px;"><br>
-  ​<input type="submit" value="Submit" maxlength="254"/>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputCity" class="col-form-label">Email</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState" class="col-form-label">School</label>
+      <select id="inputState" name="school"  class="form-control">
+        <option value="UBC">University of British Columbia</option>
+        <option value="SFU">Simon Fraser University</option>
+        <option value="UVIC">University of Victoria</option>
+        <option value="BCIT">British Columbia Institute of Technology</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" value="submit" class="btn btn-primary">Submit</button>
 </form>
+
+
 <% } else { %>
 
 <p><b>Name:</b> <%= user.displayName %></p>
@@ -40,15 +47,17 @@ document.getElementById("account").style.color = "#ff9900"; // current page sele
     <p>
       <b>Your account is active and you are currently on the <a href="/" style="text-decoration:none">leaderboard.</b>
       <form action="/deactivate">
-        ​<input type="submit" class="button" value="Deactivate Account" />
+        ​<input type="submit" class="button btn-danger" value="Deactivate Account" />
       </form>
     </p>
     <% } else { %>
       <p>
         <b>You have been removed from the leaderboard and your account is currently disabled.</b>
         <form action="/activate">
-          <input type="submit" class="button" value="Activate account" />
+          <input type="submit" class="button btn-success" value="Activate account" />
         </form>
       </p>
       <% } %>
 <% } %>
+</div>
+</div>
