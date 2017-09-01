@@ -1,22 +1,26 @@
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">BC-OSM</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#">Home</a>
-      <% if (!user) { %>
-        <a class="nav-item nav-link" href="/login">Login</a>
-        <% } else { %>
-          <a class="nav-item nav-link active" href="/account">Account <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="/logout">Log Out</a>
-          <% } %>
-          <a class="nav-item nav-link" href="#">FAQ</a>
-        </div>
-      </div>
-    </nav>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark absolute-top">
+	<a class="navbar-brand" href="/">
+		<img src="media/pumpkin-outline.svg"/ style="width: 36px; height: 36px;">
+		<!-- BC Hacktoberfest -->
+
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+		<div class="navbar-nav">
+			<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+			<% if (!user) { %>
+				<a class="nav-item nav-link" href="/login">Login</a>
+				<% } else { %>
+					<a class="nav-item nav-link" href="/account">Account</a>
+					<a class="nav-item nav-link" href="/logout">Log Out</a>
+					<% } %>
+					<!-- <a class="nav-item nav-link" href="#">FAQ</a> -->
+		</div>
+	</div>
+</nav>
 
 
     <div class="jumbotron jumbotron-fluid" style="margin-bottom: 0px;">

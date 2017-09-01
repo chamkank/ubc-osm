@@ -1,6 +1,9 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark absolute-top">
+	<a class="navbar-brand" href="/">
+		<img src="media/pumpkin-outline.svg"/ style="width: 36px; height: 36px;">
+		<!-- BC Hacktoberfest -->
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="/">BC-OSM</a>
+	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -13,91 +16,117 @@
 					<a class="nav-item nav-link" href="/account">Account</a>
 					<a class="nav-item nav-link" href="/logout">Log Out</a>
 					<% } %>
-					<a class="nav-item nav-link" href="#">FAQ</a>
+					<!-- <a class="nav-item nav-link" href="#">FAQ</a> -->
+		</div>
+	</div>
+</nav>
+
+		<div class="homepage-hero-module">
+
+			<div class="video-container">
+				<!-- <div class="filter"></div> -->
+				<div class="poster hidden">
+				</div>
+				<video autoplay loop class="fillWidth">
+				</video>
+			</div><div class="text-container">
+				<div class="container">
+					<div style="text-align: center; color: white;">
+						<h1 class="display-3 orange-text">BC Hacktoberfest</h1>
+						<br>
+						<p class="lead">A month-long open source competition for students in British Columbia, hosted by <a href="https://www.startupstorm.org" class="text-primary">StartupStorm</a>, and inspired by <a href="https://hacktoberfest.digitalocean.com" class="text-warning">Hacktoberfest</a>.</p>
+						<!-- <hr class="my-4"> -->
+					</div>
 				</div>
 			</div>
-		</nav>
 
+			<div class="jumbotron">
+				<div class="container">
+					<div style="text-align: center">
+						<h1 class="display-4 dark-orange-text">Introduction</h1>
+						<!-- <p class="lead">A month-long open source competition for students in British Columbia, hosted by <a href="https://www.startupstorm.org">StartupStorm</a>, and inspired by <a href="https://hacktoberfest.digitalocean.com">Hacktoberfest</a>.</p> -->
 
-		<div class="jumbotron">
-			<div class="container">
-				<div style="text-align: center">
-					<h1 class="display-3 text-primary">BC Open Source Month</h1>
-					<p class="lead">A month-long open source competition for students in British Columbia, hosted by <a href="https://www.startupstorm.org">StartupStorm</a>, and inspired by <a href="https://hacktoberfest.digitalocean.com">Hacktoberfest</a>.</p>
-					<hr class="my-4">
-				</div>
-
-				<div class="card" style="width: 100%;">
-					<div class="card-body">
-						<h4 class="card-title">How does this work?</h4>
-						<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-						<p class="card-text">Take some time this month to get involved with open source development on GitHub - as you make more contributions to external projects, you and your school's score will increase in the leaderboard below.</p>
+						<hr class="my-4">
 					</div>
-				</div>
 
-				<div class="card" style="width: 100%;">
-					<div class="card-body">
-						<h4 class="card-title">What if I'm new to open source?</h4>
-						<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-						<p class="card-text">No problem! <a href="http://www.github.com">Create a GitHub account</a> and follow the <a href="https://opensource.guide/how-to-contribute/">official open source guide.</a></p>
-					</div>
-				</div>
-
-
-				<% if (!user) { %>
 					<div class="card" style="width: 100%;">
 						<div class="card-body">
-							<h4 class="card-title">How do I join?</h4>
+							<h4 class="card-title">How does this work?</h4>
 							<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-							<p class="card-text">Just sign up with GitHub!</p>
-							<p class="lead">
-								<a class="btn btn-primary btn-lg" href="/login" role="button">Register</a>
-							</p>
+							<p class="card-text">Take some time this month to get involved with open source development on GitHub - as you make more contributions to external projects, you and your school's score will increase in the leaderboard below.</p>
 						</div>
 					</div>
-					<% } else { %>
-						<!-- <center><hr/>You are currently registered in the leaderboard. To manage your settings, go to your <a href="/account">account page</a>.</center><hr/> -->
+
+					<div class="card" style="width: 100%;">
+						<div class="card-body">
+							<h4 class="card-title">What if I'm new to open source?</h4>
+							<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+							<p class="card-text">No problem! <a href="http://www.github.com">Create a GitHub account</a> and follow the <a href="https://opensource.guide/how-to-contribute/">official open source guide.</a></p>
+						</div>
+					</div>
+
+					<div class="card" style="width: 100%;">
+						<div class="card-body">
+							<h4 class="card-title">When can I start?</h4>
+							<p class="card-text">You can sign up anytime between October 1 and October 31.</p>
+						</div>
+					</div>
+
+
+					<div class="card" style="width: 100%;">
+						<div class="card-body">
+							<h4 class="card-title">When can I start?</h4>
+							<p class="card-text">You can sign up anytime between October 1 and October 31.</p>
+						</div>
+					</div>
+
+
+					<% if (!user) { %>
+						<div class="card" style="width: 100%;">
+							<div class="card-body">
+								<h4 class="card-title">How do I join?</h4>
+								<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+								<p class="card-text">Just sign up with GitHub!</p>
+								<p class="lead">
+									<a class="btn btn-primary btn-lg" href="/login" role="button">Register</a>
+								</p>
+							</div>
+						</div>
 						<% } %>
-
-						<!-- <h3>How does it work?</h3>
-						<p>Take some time this month to get involved with open source development on GitHub - as you make more contributions to external projects, you and your school's score will increase in the leaderboard below.</p>
-						<h3>What if I'm new to open source?</h3>
-						<p>No problem! <a href="http://www.github.com">Create a GitHub account</a> and follow the <a href="https://opensource.guide/how-to-contribute/">official open source guide.</a></p>
-						<h3>How do I join?</h3>
-						<p>Just sign up with GitHub!</p>
-						<p class="lead">
-						<a class="btn btn-primary btn-lg" href="#" role="button">Register</a>
-					</p> -->
-
+					</div>
 				</div>
-			</div>
 
-			<center>
-				<h1 class="display-4 text-primary">Leaderboard</h1>
-				<hr class="my-3" style="text-align: center;">
+				<center>
+					<h1 class="display-4 dark-orange-text">Leaderboard</h1>
+					<% if (user) { %>
+						<center><hr/>You are currently registered in the leaderboard. To manage your settings, go to your <a href="/account">account page</a>.</center>
+						<% } %>
+						<hr class="my-3" style="text-align: center;">
 
-				<% for(var i=0; i<schools.length; i++) {%>
-					<b>&nbsp;&nbsp;&nbsp; <%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp;
-					<% } %>
+						<% for(var i=0; i<schools.length; i++) {%>
+							<b>&nbsp;&nbsp;&nbsp; <%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp;
+							<% } %>
 
-					<table class="table table-inverse" style="max-width: 1000px;">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Username</th>
-								<th>Number of Pull Requests</th>
-								<th>School</th>
-							</tr>
-						</thead>
-						<tbody>
-							<% for(var i=0; i<leaderboard_users.length; i++) {%>
-								<tr>
-									<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><img width="50px" height="50px" src="<%= leaderboard_users[i].avatar_url %>"/></a></td>
-									<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none; color: #ADD8E6;"><%= leaderboard_users[i].username %></a></td>
-									<td><%= leaderboard_users[i].leaderboard_count %></td>
-									<td><%= leaderboard_users[i].school %></td>
-								</tr>
-								<% } %>
-							</tbody>
-						</table>
-					</center>
+							<table class="table table-inverse" style="max-width: 1000px;">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Username</th>
+										<th>Number of Pull Requests</th>
+										<th>School</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% for(var i=0; i<leaderboard_users.length; i++) {%>
+										<tr>
+											<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><img width="50px" height="50px" src="<%= leaderboard_users[i].avatar_url %>"/></a></td>
+											<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none; color: #ADD8E6;"><%= leaderboard_users[i].username %></a></td>
+											<td><%= leaderboard_users[i].leaderboard_count %></td>
+											<td><%= leaderboard_users[i].school %></td>
+										</tr>
+										<% } %>
+									</tbody>
+								</table>
+							</center>
+
+							<script src="js/video-cover.js"></script>
