@@ -63,3 +63,9 @@ body {
 .absolute-top {
   z-index: 200;
 }
+
+@media only screen and (max-width: 450px) {
+    .main-header {
+      font-size: 3em;
+    }
+}
