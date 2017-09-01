@@ -1,7 +1,6 @@
-# ubc-osm
-[BC Hacktoberfest](http://bchacktoberfest.ca/)
+# BC Hacktoberfest
 
-Web application for BC Hacktoberfest - a month-long open source competition for students in British Columbia, hosted by [StartupStorm](http://www.startupstorm.org/), and inspired by [Hacktoberfest](hacktoberfest.digitalocean.com).
+A web application for [BC Hacktoberfest](http://bchacktoberfest.ca/) - a month-long open source competition for students in British Columbia, hosted by [StartupStorm](http://www.startupstorm.org/), and inspired by [Hacktoberfest](hacktoberfest.digitalocean.com).
 
 [Trello discussion thread](https://trello.com/c/eNtLkekm/1-leaderboard-with-prizes)
 
