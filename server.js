@@ -355,6 +355,7 @@ cron.schedule('* * 1 * *', function(){
   // updates leaderboard every hour
   console.log('Scheduler running.');
   updateLeaderboard("-");
+  updateSchoolCount();
 });
 
 // Helper function for sorting leaderboard (sorts by highest score)
