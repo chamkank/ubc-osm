@@ -17,7 +17,7 @@
 					<a class="nav-item nav-link" href="/account">Account</a>
 					<a class="nav-item nav-link" href="/logout">Log Out</a>
 					<% } %>
-					<!-- <a class="nav-item nav-link" href="#">FAQ</a> -->
+					<a class="nav-item nav-link" href="https://www.startupstorm.org/contact-us.html">Contact</a>
 		</div>
 	</div>
 </nav>
@@ -56,7 +56,7 @@
             <p><b>Username:</b> <%= user.username %></p>
             <p><b>School:</b> <%= school %></p>
             <p><b>Email:</b> <%= email %></p>
-            <p><b>Pull requests:</b>
+            <p><b>Pull requests from October:</b>
               <% if (pull_requests) { %>
                 <ol>
                   <% for(var i=0; i<pull_requests.length; i++) {%>
@@ -70,14 +70,14 @@
                 NOTE: Pull requests are updated every hour and only count if they are a contribution to a public project that is not your own.
                 <% if (!deactivated) { %>
                   <p>
-                    <b>Your account is active and you are currently on the <a href="/" style="text-decoration:none">leaderboard.</b>
+                    <b>Your account is active and you are currently on the <a href="/" style="text-decoration:none">leaderboard.</b> Leaderboard will be visible in October.
                       <form action="/deactivate">
                         ​<input type="submit" class="button btn-danger" value="Deactivate Account" />
                       </form>
                     </p>
                     <% } else { %>
                       <p>
-                        <b>You have been removed from the leaderboard and your account is currently disabled.</b>
+                        <b>You have been removed from the leaderboard and your account is currently disabled.</b>  Leaderboard will be visible in October.
                         <form action="/activate">
                           <input type="submit" class="button btn-success" value="Activate account" />
                         </form>

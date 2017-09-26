@@ -100,7 +100,8 @@ app.use(express.static(__dirname + '/public'));
 // Route for homepage
 app.get('/', function(req, res){
   // Retrieve users from database that are not deactivated
-  db.collection('users').find({"id":{$exists:true}, "deactivated":{$eq:0}}, {displayName:1, username:1, leaderboard_count:1, _id:0, school:1, avatar_url:1}).toArray(function(err, results) {
+  // updateSchoolCount();
+  db.collection('users').find({"id":{$exists:true}, "deactivated":{$nin:[1]}}, {displayName:1, username:1, leaderboard_count:1, _id:0, school:1, avatar_url:1}).toArray(function(err, results) {
     if (err) return console.log(err);
 
     // get schools with leaderboard_count
@@ -354,7 +355,7 @@ function updateSchoolCount(){
 cron.schedule('* * 1 * *', function(){
   // updates leaderboard every hour
   console.log('Scheduler running.');
-  updateLeaderboard("-");
+  updateLeaderboard("2017-10");
 });
 
 // Helper function for sorting leaderboard (sorts by highest score)
