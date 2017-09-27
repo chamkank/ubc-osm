@@ -69,7 +69,7 @@ passport.use(
         // Add additional fields (leaderboard_count, deactivated, pull_request_list)
         db.collection('users').update( {"id":profile.id}, {$set : {"leaderboard_count":0, "deactivated":0, "pull_request_list":[]}} );
         try {
-          updateLeaderboard("-"); // Update leaderboard upon new user joining the competition
+          updateLeaderboard("2017-10"); // Update leaderboard upon new user joining the competition
         } catch(e){
           console.log(e);
         }
