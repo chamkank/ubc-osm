@@ -74,6 +74,22 @@ body {
   min-width: 300px;
 }
 
+#pages {
+	margin-right: -10px;
+	display: inline;
+}
+
+.pagination {
+  font-size: 15px;
+  font-weight: bold;
+  display:inline-block;
+  padding:5px;
+}
+
+.pagination li {
+	padding-left: 20px;
+	display: inline;
+}
 
 @media only screen and (max-width: 450px) {
     .main-header {

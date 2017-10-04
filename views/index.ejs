@@ -104,6 +104,7 @@
 							<b>&nbsp;&nbsp;&nbsp; <%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp;
 							<% } %> -->
 
+							<div id="leaderboard">
 							<table class="table table-inverse table-responsive" style="max-width: 1000px;">
 								<thead>
 									<tr>
@@ -113,17 +114,19 @@
 										<th>School</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody class="list">
 									<% for(var i=0; i<leaderboard_users.length; i++) {%>
 										<tr>
-											<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><img width="50px" height="50px" src="<%= leaderboard_users[i].avatar_url %>"/></a></td>
-											<td><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none; color: #ADD8E6;"><%= leaderboard_users[i].username %></a></td>
-											<td><%= leaderboard_users[i].leaderboard_count %></td>
-											<td><%= leaderboard_users[i].school %></td>
+											<td class="avatar"><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none;"><img width="50px" height="50px" src="<%= leaderboard_users[i].avatar_url %>"/></a></td>
+											<td class="username"><a href="https://github.com/<%= leaderboard_users[i].username %>" style="text-decoration:none; color: #ADD8E6;"><%= leaderboard_users[i].username %></a></td>
+											<td class="count"><%= leaderboard_users[i].leaderboard_count %></td>
+											<td class="school"><%= leaderboard_users[i].school %></td>
 										</tr>
 										<% } %>
 									</tbody>
 								</table>
+									<div id="pages">PAGES:</div> <ul class="pagination"></ul>
+								</div>
 							</center>
 
 
@@ -142,9 +145,8 @@
 
 
 							</center>
-
+							<script src="js/list.min.js"></script>
 							<script src="js/video-cover.js"></script>
-
 							<!-- Global Site Tag (gtag.js) - Google Analytics -->
 							<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101540407-4"></script>
 							<script>
@@ -153,4 +155,11 @@
 							  gtag('js', new Date());
 
 							  gtag('config', 'UA-101540407-4');
+							</script>
+							<script>
+								var monkeyList = new List('leaderboard', {
+									valueNames: ['avatar', 'username', 'count', 'school'],
+									page: 10,
+									pagination: true
+								});
 							</script>
