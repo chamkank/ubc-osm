@@ -79,6 +79,12 @@ body {
 	display: inline;
 }
 
+.fuzzy-search {
+	text-align: center;
+	width: 300px;
+	margin-bottom: 20px;
+}
+
 .pagination {
   font-size: 15px;
   font-weight: bold;
