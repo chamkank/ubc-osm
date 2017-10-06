@@ -17,9 +17,9 @@
 					<a class="nav-item nav-link" href="/logout">Log Out</a>
 					<% } %>
 					<a class="nav-item nav-link" href="https://www.startupstorm.org/contact-us.html">Contact</a>
-		</div>
-	</div>
-</nav>
+				</div>
+			</div>
+		</nav>
 
 		<div class="homepage-hero-module">
 
@@ -67,6 +67,13 @@
 							<p class="card-text">No problem! <a href="http://www.github.com">Create a GitHub account</a> and follow the <a href="https://opensource.guide/how-to-contribute/">official open source guide.</a></p><p>We will also be hosting a series of workshops in October to help you get started with open source development. <br>Like our <a href="https://www.facebook.com/StartupStorm/">Facebook page</a> to stay updated.</p>
 						</div>
 					</div>
+					<div class="card" style="width: 100%;">
+						<div class="card-body">
+							<h4 class="card-title">Where can I find projects to work on?</h4>
+							<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+							<p class="card-text">You can find projects that are specifically looking for Hacktoberfest contributions <a href="https://github.com/search?q=label:hacktoberfest+state:open+type:issue">here</a>. </p><p>You can also browse active projects on GitHub through the <a href="https://github.com/trending">trending projects</a> page.</p>
+						</div>
+					</div>
 
 					<div class="card" style="width: 100%;">
 						<div class="card-body">
@@ -90,23 +97,23 @@
 						<% } %>
 					</div>
 				</div>
-					<center><h1 class="page-header dark-orange-text" style="margin-bottom: -10px;">LEADERBOARD</h1>
-					</center>
-					<br>
+				<center><h1 class="page-header dark-orange-text" style="margin-bottom: -10px;">LEADERBOARD</h1>
+				</center>
+				<br>
 
-					<center>
+				<center>
 					<% if (user) { %>
 						<center><hr/>You are currently registered in the leaderboard. To manage your settings, go to your <a href="/account">account page</a>.</center>
 						<% } %>
 						<hr class="my-3" style="text-align: center;">
 
 						<!-- <% for(var i=0; i<schools.length; i++) {%>
-							<b>&nbsp;&nbsp;&nbsp; <%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp;
-							<% } %> -->
+						<b>&nbsp;&nbsp;&nbsp; <%= schools[i].school %>:</b> <%= schools[i].leaderboard_count %> &nbsp;&nbsp;&nbsp;
+						<% } %> -->
 
-							<div id="leaderboard">
+						<div id="leaderboard">
 							<input type="text" class="fuzzy-search" placeholder="Search leaderboard"/>
-							
+
 							<table class="table table-inverse table-responsive" style="max-width: 1000px;">
 								<thead>
 									<tr>
@@ -127,23 +134,23 @@
 										<% } %>
 									</tbody>
 								</table>
-									<div id="pages">PAGES:</div> <ul class="pagination"></ul>
+								<div id="pages">PAGES:</div> <ul class="pagination"></ul>
+							</div>
+						</center>
+
+
+						<hr class="my-3" style="text-align: center;">
+
+						<center><h1 class="page-header dark-orange-text" style="padding-top: 20px; padding-bottom: 20px;">SPONSORS</h1>
+							<div class="jumbotron" style="margin-bottom:0; height: 380px; background-color: #231F19;">
+								<div id="sponsors">
+									<center><br>
+										<a href="https://www.digitalocean.com/"><img id="sponsor" src="media/digital-ocean.png"></img></a><br><br><br>
+										<a href="https://www.github.com/"><img id="sponsor" src="media/github-logo.png"></img></a><br>
+									</center>
 								</div>
-							</center>
-
-
-							<hr class="my-3" style="text-align: center;">
-
-					<center><h1 class="page-header dark-orange-text" style="padding-top: 20px; padding-bottom: 20px;">SPONSORS</h1>
-				<div class="jumbotron" style="margin-bottom:0; height: 380px; background-color: #231F19;">
-					<div id="sponsors">
-					<center><br>
-						<a href="https://www.digitalocean.com/"><img id="sponsor" src="media/digital-ocean.png"></img></a><br><br><br>
-						<a href="https://www.github.com/"><img id="sponsor" src="media/github-logo.png"></img></a><br>
-					</center>
-				</div>
-			</div>
-				<center>
+							</div>
+							<center>
 
 
 							</center>
@@ -152,16 +159,16 @@
 							<!-- Global Site Tag (gtag.js) - Google Analytics -->
 							<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101540407-4"></script>
 							<script>
-							  window.dataLayer = window.dataLayer || [];
-							  function gtag(){dataLayer.push(arguments)};
-							  gtag('js', new Date());
+							window.dataLayer = window.dataLayer || [];
+							function gtag(){dataLayer.push(arguments)};
+							gtag('js', new Date());
 
-							  gtag('config', 'UA-101540407-4');
+							gtag('config', 'UA-101540407-4');
 							</script>
 							<script>
-								var monkeyList = new List('leaderboard', {
-									valueNames: ['avatar', 'username', 'count', 'school'],
-									page: 10,
-									pagination: true
-								});
+							var monkeyList = new List('leaderboard', {
+								valueNames: ['avatar', 'username', 'count', 'school'],
+								page: 10,
+								pagination: true
+							});
 							</script>
