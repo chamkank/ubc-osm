@@ -352,7 +352,7 @@ function updateSchoolCount(){
 }
 
 // Automatic Scheduler (updates leaderboard occasionally)
-cron.schedule('* * 1 * *', function(){
+cron.schedule('* 1 * * *', function(){
   // updates leaderboard every hour
   console.log('Scheduler running.');
   updateLeaderboard("2017-10");
