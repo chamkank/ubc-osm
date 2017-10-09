@@ -147,6 +147,12 @@ app.post('/set_details', ensureAuthenticated, function(req, res){
       console.log(req.user.id+" set school.");
   })
 
+  // Set avatar_url field of current user
+  db.collection('users').update({"id":req.user.id},{$set: {"avatar_url":"https://github.com/" + req.user.username + ".png"}}, function (err, res) {
+    if (err) return console.log(err)
+      console.log(req.user.id+" set avatar_url.");
+  })
+
   res.redirect('/account')
 
 });
