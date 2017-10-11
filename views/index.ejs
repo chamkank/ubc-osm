@@ -88,10 +88,20 @@
 							<div class="card-body">
 								<h4 class="card-title">How do I join?</h4>
 								<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-								<p class="card-text">Just sign up with GitHub! We also recommend that you sign up for the <a href="https://hacktoberfest.digitalocean.com/">Global Hacktoberfest Initiative</a>.</p>
+								<p class="card-text">Just sign up with GitHub! We also recommend that you sign up for the <a href="https://hacktoberfest.digitalocean.com/">Global Hacktoberfest Initiative</a> - if you make at least 4 pull requests, you will win a limited edition Hacktoberfest t-shirt! </p>
 								<p class="lead">
 									<a class="btn btn-primary btn-lg" href="/login" role="button">Register</a>
 								</p>
+							</div>
+						</div>
+						<% } %>
+
+					<% if (user) { %>
+						<div class="card" style="width: 100%;">
+							<div class="card-body">
+								<h4 class="card-title">How do I win a t-shirt?</h4>
+								<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+								<p class="card-text">If you sign up for the <a href="https://hacktoberfest.digitalocean.com/">Global Hacktoberfest Initiative</a> and make at least 4 pull requests, you will win a <b>limited edition Hacktoberfest t-shirt!</b> </p>
 							</div>
 						</div>
 						<% } %>
