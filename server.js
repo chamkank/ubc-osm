@@ -240,7 +240,7 @@ function updateLeaderboard(date){
     // Prevent call-stack overflow
     setTimeout(function() {
       step(i+1);
-    }, 2000 ); // 100 milliseconds
+    }, 20000 ); // 20 seconds
 
   };
   step(0) // start the call which steps through users one by one
